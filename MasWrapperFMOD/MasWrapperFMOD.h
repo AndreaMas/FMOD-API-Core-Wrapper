@@ -17,17 +17,17 @@ namespace fmodw {
 	class FModWrapper
 	{
 		FMOD::System* m_system;
-		std::vector<FMOD::Sound*> m_sounds;
-		std::vector<FMOD::Channel*> m_channels;
+		FMOD::Sound* m_sounds[NUM_SOUNDS];
+		FMOD::Channel* m_channels[NUM_CHANNELS];
 
 	public:
 		FModWrapper();
 		void Init(); // initialize FMOD
-		void Play(int i_channel);
+		void PlaySongOnChannel(int i_sound, int i_channel);
 		void Pause(int i_channel);
 		void Stop(int i_channel);
-		void LoadMusicStaticToChannel(std::string i_path, int i_channel);
-		void LoadMusicStreamToChannel(std::string i_path, int i_channel);
+		void LoadStaticMusicToSounds(std::string i_path, int i_channel);
+		void LoadStreamingMusicToSounds(std::string i_path, int i_channel);
 		void SetChannelVolume(int i_volume, int i_channel);
 		void SetChannelPan(int i_pan, int i_channel);
 	};
