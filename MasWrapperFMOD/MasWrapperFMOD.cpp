@@ -17,7 +17,6 @@ fmodw::FModWrapper::FModWrapper() :
 	m_channels(),
 	m_sounds()
 {
-	//m_channels.clear();
 }
 
 void fmodw::FModWrapper::Init()
@@ -111,8 +110,6 @@ void fmodw::FModWrapper::Stop(int i_channel)
 {
 
 }
-
-
 
 void fmodw::FModWrapper::SetChannelVolume(int i_volume, int i_channel)
 {

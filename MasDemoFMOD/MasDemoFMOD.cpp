@@ -2,12 +2,11 @@
 #include <string>
 #include "../MasWrapperFMOD/MasWrapperFMOD.h"
 
-using namespace fmodw;
 
 int main()
 {
 	// Initialize FMOD System
-	FModWrapper* fmod = new FModWrapper();
+	fmodw::FModWrapper* fmod = new fmodw::FModWrapper();
 	fmod->Init();
 
 	// Load Static Music to Channel
