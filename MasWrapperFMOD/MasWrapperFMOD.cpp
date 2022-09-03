@@ -44,16 +44,14 @@ void fmodw::FModWrapper::Init()
 	}
 }
 
-void fmodw::FModWrapper::LoadStaticMusicToSounds(std::string i_path, int i_sound)
+void fmodw::FModWrapper::LoadStaticSound(std::string i_path, int i_sound)
 {
-	//FMOD::Sound* sound;
 	FMOD_RESULT result = m_system->createSound(
 		i_path.c_str(),
 		FMOD_CREATESAMPLE,
 		nullptr,
 		&m_sounds[i_sound]
 	);
-	//m_sounds[i_sound] = sound;
 
 	if (result != FMOD_OK) {
 		std::cout << "FAIL during Loading Static music:" << std::endl;
@@ -61,10 +59,10 @@ void fmodw::FModWrapper::LoadStaticMusicToSounds(std::string i_path, int i_sound
 		return;
 	}
 
-	std::cout << "SUCCESS Loading Static music:" << std::endl;
+	std::cout << "SUCCESS Loading Static music." << std::endl;
 }
 
-void fmodw::FModWrapper::LoadStreamingMusicToSounds(std::string i_path, int i_sound)
+void fmodw::FModWrapper::LoadStreamingSound(std::string i_path, int i_sound)
 {
 	FMOD_RESULT result = m_system->createSound(
 		i_path.c_str(),
@@ -79,8 +77,26 @@ void fmodw::FModWrapper::LoadStreamingMusicToSounds(std::string i_path, int i_so
 		return;
 	}
 
-	std::cout << "SUCCESS Loading Streaming music:" << std::endl;
+	std::cout << "SUCCESS Loading Streaming music." << std::endl;
 
+}
+
+void fmodw::FModWrapper::LoadCompressedSound(std::string i_path, int i_sound)
+{
+	FMOD_RESULT result = m_system->createSound(
+		i_path.c_str(),
+		FMOD_CREATECOMPRESSEDSAMPLE,
+		nullptr,
+		&m_sounds[i_sound]
+	);
+
+	if (result != FMOD_OK) {
+		std::cout << "FAIL during Loading Compressed music:" << std::endl;
+		std::cout << FMOD_ErrorString(result) << std::endl;
+		return;
+	}
+
+	std::cout << "SUCCESS Loading Static music." << std::endl;
 }
 
 void fmodw::FModWrapper::PlaySongOnChannel(int i_sound, int i_channel)
@@ -101,18 +117,38 @@ void fmodw::FModWrapper::PlaySongOnChannel(int i_sound, int i_channel)
 	std::cout << "SUCCESS playing song on channel." << std::endl;
 }
 
-void fmodw::FModWrapper::Pause(int i_channel)
+void fmodw::FModWrapper::PauseChannel(int i_channel)
 {
+	FMOD_RESULT result = m_channels[i_channel]->setPaused(true);
+	if (result != FMOD_OK)
+	{
+		std::cout << "FAIL when playing song on channel:" << std::endl;
+		std::cout << FMOD_ErrorString(result) << std::endl;
+		return;
+	}
 
+	std::cout << "SUCCESS pausing song on channel." << std::endl;
 }
 
-void fmodw::FModWrapper::Stop(int i_channel)
+void fmodw::FModWrapper::StopChannel(int i_channel)
 {
 
 }
 
 void fmodw::FModWrapper::SetChannelVolume(int i_volume, int i_channel)
 {
+	if (i_volume > MAX_VOLUME || i_volume < 0) {
+		std::cout << "Volume must be within 0-10!" << std::endl;
+		return;
+	}
+	float volume = (float)i_volume / 10;
+	FMOD_RESULT result = m_channels[i_channel]->setVolume(volume);
+	if (result != FMOD_RESULT::FMOD_OK && result != FMOD_RESULT::FMOD_ERR_INVALID_HANDLE)
+	{
+		std::cout << "FAIL while setting channel volume." << std::endl;
+		std::cout << FMOD_ErrorString(result) << std::endl;
+		return;
+	}
 
 }
 
