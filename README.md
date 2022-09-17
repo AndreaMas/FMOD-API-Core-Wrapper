@@ -4,7 +4,7 @@
 Implementation of a (bare bone) wrapper around FMOD's Core API.
 
 
-Outside of setting loops, else should work fine.
+Outside of setting loops, else works fine.
 
 
 Build using Visual Studio 2022
