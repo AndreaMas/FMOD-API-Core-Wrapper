@@ -9,15 +9,15 @@ Outside of setting loops, else works fine.
 
 
 
-## Instructions: Run from already-built executable
+## Instructions
+
+### Run from already-built executable
 
 The executable can be found in: MasWrapperFMOD/x64/Release/MasDemoFMOD.exe
 
 Simply double click, the program should launch and work as intended.
 
-
-
-## Instructions: Build from Solution
+### Build from Solution
 
 Open the solution with visual studio 2022. The solution can be found in: MasWrapperFMOD/MasWrapperFMOD.sln
 
